@@ -12,6 +12,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Build image
+      run: docker build -t saurabh2059/ci-cd-demo .
+
+    - name: Push image
+      run: docker push saurabh2059/ci-cd-demo
+
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
